@@ -1,0 +1,8 @@
+{
+  "ext": "php",
+  "watch": ["src/app/","tests/"],
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules"
+  ]
+}

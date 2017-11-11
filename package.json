@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "bash myphpunit",
+    "autotest": "nodemon -q -x 'npm run --silent test' "
+  },
+  "license": "MIT",
+  "devDependencies": {
+  }
+}

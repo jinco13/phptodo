@@ -1,0 +1,5 @@
+#!/bin/bash
+PHPUNIT_RESULT=$(vendor/bin/phpunit)
+RESULT=$(echo "$PHPUNIT_RESULT" | tail -n 4 | sed -n 2p)
+osascript -e "display notification \"$RESULT\" with title \"PHPUnit Result\" "
+echo "$PHPUNIT_RESULT"
