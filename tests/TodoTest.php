@@ -8,6 +8,16 @@ class TodoTest extends \PHPUnit\Framework\TestCase
         $this->target = new Todo();
     }
 
+    public function testConstructWithTitle() {
+        $todo = new Todo(null, "MyTitle", FALSE);
+        $this->assertEquals("MyTitle", $todo->title);
+    }
+
+    public function testConstructWithCompleted() {
+        $todo = new Todo(null, "MyTitle", TRUE);
+        $this->assertEquals(TRUE, $todo->completed);
+    }
+
     public function testTargetNotNull() {
         $this->assertNotNull($this->target);
     }
