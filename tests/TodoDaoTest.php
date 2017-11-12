@@ -17,7 +17,7 @@ class TodoDaoTest extends \PHPUnit\Framework\TestCase
         array_push($list, $todo1, $todo2);
         $this->target->insertTodoList($list);
         $result = $this->target->getAllTodos();
-        $this->assertEquals(2, count($result));
+        $this->assertEquals("todo2", $result[1]->title);
     }
 
     function testInsertTodo() {
