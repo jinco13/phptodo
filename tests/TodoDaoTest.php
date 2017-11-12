@@ -29,7 +29,7 @@ class TodoDaoTest extends \PHPUnit\Framework\TestCase
     }
 
     function tearDown() {
-        $this->target->db->query("truncate todo");
+        $this->target->db->query("truncate todos");
     }
 
 }
