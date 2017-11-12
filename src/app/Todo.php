@@ -6,10 +6,10 @@ class Todo
 {
     public function __construct() {
       $this->title = "";
-      $this->completed = false;
+      $this->completed = FALSE;
     }
 
     public function done() {
-      $this->completed = true;
+      $this->completed = TRUE;
     }
 }
