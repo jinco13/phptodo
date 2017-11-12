@@ -1,12 +1,12 @@
 {
-    "name": "jinco/myapp",
-    "description": "myapp",
+    "name": "jinco/mytodo",
+    "description": "mytodo",
     "require-dev": {
         "phpunit/phpunit": "^6.4"
     },
     "autoload": {
         "psr-4": {
-            "MyApp\\": "src/app/"
+            "MyTodo\\": "src/app/"
         }
     }
 }
