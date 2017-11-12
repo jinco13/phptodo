@@ -14,6 +14,17 @@ class TodoDao
         $this->table = "todos";
     }
 
+    public function getAllTodos() {
+        $sth = $this->db->prepare("SELECT id, title, completed FROM todos");
+        $sth->execute();
+        $result = $sth->fetchAll();
+        $list = [];
+        foreach ($result as $todo) {
+            $list[] = new Todo($todo['id'],$todo['title'],$todo['completed']);
+        }
+        return $list;
+    }
+
     public function insertTodoList($list) {
         $values_query = "";
         foreach ($list as $todo) {
