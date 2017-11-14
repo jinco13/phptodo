@@ -6,8 +6,6 @@ class TodoDaoTest extends \PHPUnit\Framework\TestCase
 {
     function setUp() {
         $this->target = new TodoDao();
-        $this->todo = new Todo();
-        $this->todo->title = "test todo";
     }
 
     function testGetTodos() {
@@ -21,6 +19,8 @@ class TodoDaoTest extends \PHPUnit\Framework\TestCase
     }
 
     function testInsertTodo() {
+        $this->todo = new Todo();
+        $this->todo->title = "test todo";
         $count = $this->target->insertTodo($this->todo);
         $this->assertEquals(1, $count);
     }
