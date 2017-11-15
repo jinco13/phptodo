@@ -6,7 +6,7 @@
     },
     "autoload": {
         "psr-4": {
-            "MyTodo\\": "src/app/"
+            "MyTodo\\Models\\": "src/app/models/"
         }
     }
 }
