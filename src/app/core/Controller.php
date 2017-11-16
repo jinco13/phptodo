@@ -10,6 +10,25 @@ abstract class Controller
     protected $session;
     protected $db_manager;
 
+    protected function render($variables = array(), $template = null, $layout = 'layout')
+    {
+        $defaults = array(
+            'request'   => $this->request,
+            'base_url'  => $this->request->getBaseUrl(),
+            'session'   => $this->session,
+        );
+
+        $view = new View($this->application->getViewDir(), $defaults);
+
+        if (is_null($template)) {
+            $template = $this->action_name;
+        }
+
+        $path = $this->controller_name . '/' . $template;
+
+        return $view->render($path, $variables, $layout);
+    }
+
     public function __construct($application)
     {
         $this->controller_name = strtolower(substr(get_class($this), 0, -10));
@@ -30,7 +49,7 @@ abstract class Controller
             $this->forward404();
         }
         $content = $this->$action_method($params);
-        
+
         return $content;
     }
 }
