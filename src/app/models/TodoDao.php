@@ -6,7 +6,8 @@ use PDO;
 
 class TodoDao
 {
-    public function __construct($user='docker', $pass='docker') {
+    public function __construct($user='docker', $pass='docker')
+    {
         $dsn = "pgsql:host=localhost; port=5432; dbname=todos";
         try {
             $this->db = new \PDO($dsn, $user, $pass);
@@ -16,7 +17,8 @@ class TodoDao
         $this->table = "todos";
     }
 
-    public function getAllTodos() {
+    public function getAllTodos()
+    {
         $sth = $this->db->prepare("SELECT id, title, completed FROM todos");
         $sth->execute();
         $result = $sth->fetchAll();
@@ -27,7 +29,8 @@ class TodoDao
         return $list;
     }
 
-    public function insertTodoList($list) {
+    public function insertTodoList($list)
+    {
         $values_query = "";
         foreach ($list as $todo) {
             $values_query .= "('$todo->title', FALSE),";
@@ -38,14 +41,16 @@ class TodoDao
         return $stmt->rowCount();
     }
 
-    public function insertTodo($todo) {
+    public function insertTodo($todo)
+    {
         $stmt = $this->db->prepare("INSERT INTO $this->table (title, completed) VALUES (:title, FALSE);");
         $stmt->bindValue(':title', $todo->title, PDO::PARAM_STR);
         $stmt->execute();
         return $this->db->lastInsertId();
     }
 
-    public function __destruct() {
+    public function __destruct()
+    {
         $this->db = null;
     }
 }
