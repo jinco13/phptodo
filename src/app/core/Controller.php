@@ -10,6 +10,56 @@ abstract class Controller
     protected $session;
     protected $db_manager;
 
+    protected function forward404()
+    {
+        throw new HttpNotFoundException('Forwarded 404 page from '
+            . $this->controller_name . '/' . $this->action_name);
+    }
+
+    protected function generateCsrfToken($form_name)
+    {
+        $key = 'csrf_tokens/' . $form_name;
+        $tokens = $this->session->get($key, array());
+        if (count($tokens) >= 10) {
+            array_shift($tokens);
+        }
+
+        $token = sha1($form_name . session_id() . microtime());
+        $tokens[] = $token;
+
+        $this->session->set($key, $tokens);
+
+        return $token;
+    }
+
+    protected function checkCsrfToken($form_name, $token)
+    {
+        $key = 'csrf_tokens/' . $form_name;
+        $tokens = $this->session->get($key, array());
+
+        if (false !== ($pos = array_search($token, $tokens, true))) {
+            unset($tokens[$pos]);
+            $this->session->set($key, $tokens);
+
+            return true;
+        }
+        return false;
+    }
+
+    protected function redirect($url)
+    {
+        if (!preg_match('#https?://#', $url)) {
+            $protocol = $this->request->isSsl() ? 'https://' : 'http://';
+            $host = $this->request->getHost();
+            $base_url = $this->request->getBaseUrl();
+
+            $url = $protocol . $host . $base_url . $url;
+        }
+
+        $this->response->setStatusCode(302, 'Found');
+        $this->response->setHttpHeader('Location', $url);
+    }
+
     protected function render($variables = array(), $template = null, $layout = 'layout')
     {
         $defaults = array(
@@ -48,6 +98,11 @@ abstract class Controller
         if (!method_exists($this, $action_method)) {
             $this->forward404();
         }
+
+        if ($this->needsAuthentication($action) && !$this->session->isAuthenticated()) {
+            throw new UnauthorizedActionException();
+        }
+
         $content = $this->$action_method($params);
 
         return $content;
