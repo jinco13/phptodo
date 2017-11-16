@@ -7,6 +7,7 @@ abstract class Application
     protected $response;
     protected $session;
     protected $db_manager;
+    protected $login_action = array();
 
     protected function render404Page($e)
     {
@@ -28,7 +29,7 @@ abstract class Application
 EOF
         );
     }
-    
+
     public function run()
     {
         try {
@@ -43,6 +44,9 @@ EOF
             $this->runAction($controller, $action $params);
         } catch (HttpNotFoundException $e) {
             $this->render404Page($e);
+        } catch (UnauthorizedActionException $e) {
+            list($controller, $action) = $this->login_action;
+            $this->runAction($controller, $action);
         }
 
         $this->reponse->send();
