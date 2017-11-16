@@ -4,11 +4,13 @@ class Router
 {
     protected $routes;
 
-    public function __construct($definitions) {
+    public function __construct($definitions)
+    {
         $this->routes = $this->compileRoutes($definitions);
     }
 
-    public function resolve($path_info) {
+    public function resolve($path_info)
+    {
         if ('/' !== substr($path_info, 0, 1)) {
             $path_info = '/' . $path_info;
         }
@@ -23,7 +25,8 @@ class Router
         return false;
     }
 
-    public function compileRoutes($definitions) {
+    public function compileRoutes($definitions)
+    {
         $routes = array();
 
         foreach ($definitions as $url => $params) {
