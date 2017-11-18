@@ -35,13 +35,13 @@ EOF
         try {
             $params = $this->router->resolve($this->request->getPathInfo());
             if ($params === false) {
-                throw new HttpNotFoundException('No route found for ' . $this->request->getPathInfo());
+                throw new HttpNotFoundException('ERROR: No route found for ' . $this->request->getPathInfo());
             }
 
             $controller = $params['controller'];
             $action = $params['action'];
 
-            $this->runAction($controller, $action $params);
+            $this->runAction($controller, $action, $params);
         } catch (HttpNotFoundException $e) {
             $this->render404Page($e);
         } catch (UnauthorizedActionException $e) {
@@ -49,7 +49,7 @@ EOF
             $this->runAction($controller, $action);
         }
 
-        $this->reponse->send();
+        $this->response->send();
     }
 
     public function runAction($controller_name, $action, $params = array())
@@ -59,7 +59,7 @@ EOF
         if ($controller === false) {
             throw new HttpNotFoundException($controller_class . ' controller is not found.');
         }
-        $content => $controller->run($action, $params);
+        $content = $controller->run($action, $params);
         $this->response->setContent($content);
     }
 
@@ -73,7 +73,7 @@ EOF
                 require_once $controller_file;
 
                 if (!class_exists($controller_class)) {
-                    return false
+                    return false;
                 }
             }
         }
@@ -105,7 +105,7 @@ EOF
         $this->request = new Request();
         $this->response = new Response();
         $this->session = new Session();
-        $this->db_manager = new DbManager();
+        $this->db_manager = new TodoDao();
         $this->router = new Router($this->registerRoutes());
     }
 
