@@ -1,7 +1,5 @@
 <?php
 
-namespace MyTodo\Models;
-
 class TodoTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp()

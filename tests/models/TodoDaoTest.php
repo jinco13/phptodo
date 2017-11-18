@@ -1,12 +1,10 @@
 <?php
 
-namespace MyTodo\Models;
-
 class TodoDaoTest extends \PHPUnit\Framework\TestCase
 {
     function setUp()
     {
-        $this->target = new TodoDao();
+        $this->target = new TodoDao('localhost');
     }
 
     function testGetTodos()
