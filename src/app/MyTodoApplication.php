@@ -18,6 +18,10 @@ class MyTodoApplication extends Application
 
     protected function configure()
     {
-
+        $this->db_manager->connect('master', array(
+            'dsn'       => 'pgsql:dbname=todos;host=postgres',
+            'user'      => 'docker',
+            'password'  => 'docker',
+        ));
     }
 }
