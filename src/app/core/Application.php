@@ -105,7 +105,7 @@ EOF
         $this->request = new Request();
         $this->response = new Response();
         $this->session = new Session();
-        $this->db_manager = new TodoDao();
+        $this->db_manager = new DbManager();
         $this->router = new Router($this->registerRoutes());
     }
 
