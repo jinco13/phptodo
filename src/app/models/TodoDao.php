@@ -1,14 +1,12 @@
 <?php
 
-namespace MyTodo\Models;
 use PDOStatement\bindValue;
-use PDO;
 
 class TodoDao
 {
-    public function __construct($user='docker', $pass='docker')
+    public function __construct($host='postgres', $user='docker', $pass='docker')
     {
-        $dsn = "pgsql:host=localhost; port=5432; dbname=todos";
+        $dsn = "pgsql:host=$host; port=5432; dbname=todos";
         try {
             $this->db = new \PDO($dsn, $user, $pass);
         } catch (PDOException $e) {

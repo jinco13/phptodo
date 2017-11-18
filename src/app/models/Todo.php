@@ -1,7 +1,5 @@
 <?php
 
-namespace MyTodo\Models;
-
 class Todo
 {
     public function __construct($id=null, $title="", $completed=FALSE)
