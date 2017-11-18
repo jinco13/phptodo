@@ -2,7 +2,7 @@
 
 class DbManager
 {
-    protected $connection = array();
+    protected $connections = array();
     protected $repository_connection_map = array();
     protected $repositories = array();
 
@@ -66,7 +66,7 @@ class DbManager
 
         $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $this->connection[$name] = $conn;
+        $this->connections[$name] = $con;
     }
 
     public function getConnection($name = null)
