@@ -9,6 +9,7 @@ abstract class Controller
     protected $response;
     protected $session;
     protected $db_manager;
+    protected $auth_actions = array();
 
     protected function forward404()
     {
@@ -106,5 +107,16 @@ abstract class Controller
         $content = $this->$action_method($params);
 
         return $content;
+    }
+
+    protected function needsAuthentication($action)
+    {
+        if ($this->auth_actions === true
+            || (is_array($this->auth_actions) && in_array($action, $this->auth_actions))
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }
