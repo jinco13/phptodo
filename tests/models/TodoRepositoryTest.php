@@ -11,6 +11,8 @@ class TodoRepositoryTest extends \PHPUnit\Framework\TestCase
             'password'  => 'docker',
         ));
         $this->todo = new Todo();
+        $this->todo->title = "This is test name";
+        $this->todo->completed = TRUE;
     }
 
     public function testInsertTodo()
@@ -18,4 +20,12 @@ class TodoRepositoryTest extends \PHPUnit\Framework\TestCase
         $id = $this->db_manager->get('Todo')->insert($this->todo);
         $this->assertNotNull($id);
     }
+
+    public function testFetchAllTodos()
+    {
+        $this->db_manager->get('Todo')->insert($this->todo);
+        $list = $this->db_manager->get('Todo')->fetchAllTodos();
+        $this->assertTrue(count($list) > 1);
+    }
+
 }
