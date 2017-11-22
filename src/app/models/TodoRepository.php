@@ -11,7 +11,7 @@ class TodoRepository extends DbRepository
         ";
         $stmt = $this->con->prepare($sql);
         $stmt->bindParam(':title', $todo->title, PDO::PARAM_STR);
-        $stmt->bindParam(':completed', $todo->completed, PDO::PARAM_BOOL); 
+        $stmt->bindParam(':completed', $todo->completed, PDO::PARAM_BOOL);
         $stmt->execute();
         return $this->con->lastInsertId();
     }
@@ -21,5 +21,11 @@ class TodoRepository extends DbRepository
         $sql = "SELECT id, title, completed FROM todos";
         $list = $this->fetchAll($sql);
         return $list;
+    }
+
+    public function deleteAll()
+    {
+        $stmt = $this->con->prepare("truncate todos");
+        $stmt->execute();
     }
 }
