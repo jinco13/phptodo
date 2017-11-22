@@ -12,7 +12,9 @@ class MyTodoApplication extends Application
     protected function registerRoutes()
     {
         return array(
-            '/' => array('controller' => 'todo', 'action' => 'welcome'),
+            '/'                 => array('controller' => 'todo', 'action' => 'welcome'),
+            '/todos/new'        => array('controller' => 'todo', 'action' => 'new'),
+            '/todos/create'     => array('controller' => 'todo', 'action' => 'create'),
         );
     }
 
