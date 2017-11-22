@@ -15,6 +15,11 @@ class TodoRepositoryTest extends \PHPUnit\Framework\TestCase
         $this->todo->completed = TRUE;
     }
 
+    public function tearDown()
+    {
+        $this->db_manager->get("Todo")->deleteAll();
+    }
+
     public function testInsertTodo()
     {
         $id = $this->db_manager->get('Todo')->insert($this->todo);
@@ -25,7 +30,7 @@ class TodoRepositoryTest extends \PHPUnit\Framework\TestCase
     {
         $this->db_manager->get('Todo')->insert($this->todo);
         $list = $this->db_manager->get('Todo')->fetchAllTodos();
-        $this->assertTrue(count($list) > 1);
+        $this->assertTrue(count($list) > 0);
     }
 
 }
