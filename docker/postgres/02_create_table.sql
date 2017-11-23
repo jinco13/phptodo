@@ -10,5 +10,13 @@ SET client_min_messages = warning;
 CREATE TABLE todos (
     id serial,
     title text,
-    completed boolean
+    completed boolean,
+    created_at TIMESTAMP NULL
+);
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name varchar(20) NOT NULL,
+    password varchar(40) NOT NULL,
+    created_at TIMESTAMP NOT NULL
 );
