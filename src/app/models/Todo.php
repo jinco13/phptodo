@@ -7,6 +7,7 @@ class Todo
         $this->id = $id;
         $this->title = $title;
         $this->completed = $completed;
+        $this->created_at = new DateTime();
     }
 
     public function done()
