@@ -18,7 +18,7 @@ class TodoRepository extends DbRepository
 
     public function fetchAllTodos()
     {
-        $sql = "SELECT id, title, completed FROM todos";
+        $sql = "SELECT id, title, completed, created_at FROM todos ORDER BY id DESC";
         $list = $this->fetchAll($sql);
         return $list;
     }
