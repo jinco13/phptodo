@@ -23,13 +23,14 @@ class TodoController extends Controller
 
         $todo = new Todo();
         $todo->title = $this->request->getPost('title');
-        $todo->completed = $this->request->getPost('completed');
+        $todo->setCompleted($this->request->getPost('completed'));
 
         //// TODO error check
 
-        $this->db_manager->get('Todo')->insert($todo);
-        //return $this->render(array());
-        return $this->redirect('/todos/new');
+        $id = $this->db_manager->get('Todo')->insert($todo);
+
+        return $this->redirect('/');
+        //return $this->render(array(),'create');
     }
 
     public function newAction()
