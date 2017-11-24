@@ -6,8 +6,8 @@ class TodoRepository extends DbRepository
     {
         $now = new DateTime();
         $sql = "
-                INSERT INTO todos(title, completed)
-                    VALUES(:title, :completed)
+                INSERT INTO todos(title, completed, created_at)
+                    VALUES(:title, :completed, current_timestamp)
         ";
         $stmt = $this->con->prepare($sql);
         $stmt->bindParam(':title', $todo->title, PDO::PARAM_STR);
@@ -20,7 +20,11 @@ class TodoRepository extends DbRepository
     {
         $sql = "SELECT id, title, completed, created_at FROM todos ORDER BY id DESC";
         $list = $this->fetchAll($sql);
-        return $list;
+        $result = array();
+        foreach ($list as $todo) {
+            $result[] = new Todo($todo['id'], $todo['title'], $todo['completed'], $todo['created_at']);
+        }
+        return $result;
     }
 
     public function deleteAll()
