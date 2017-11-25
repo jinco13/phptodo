@@ -32,9 +32,9 @@ class Router
         foreach ($definitions as $url => $params) {
             $tokens = explode('/', ltrim($url, '/'));
             foreach ($tokens as $i => $token) {
-                if(0 === strpos($token, ':')) {
+                if (0 === strpos($token, ':')) {
                     $name = substr($token, 1);
-                    $token = '(?P<)' . $name . '>[^/]+)';
+                    $token = '(?P<' . $name . '>[^/]+)';
                 }
                 $tokens[$i] = $token;
             }
