@@ -15,6 +15,21 @@ class TodoRepositoryTest extends \PHPUnit\Framework\TestCase
         $this->todo->completed = TRUE;
     }
 
+    public function testDeleteTodo()
+    {
+        $id = $this->db_manager->get('Todo')->insert($this->todo);
+        $this->db_manager->get('Todo')->deleteTodo($id);
+
+        $found = $this->db_manager->get('Todo')->findTodo($id);
+        $this->assertNull($found);
+    }
+    public function testFindTodo()
+    {
+        $id = $this->db_manager->get('Todo')->insert($this->todo);
+        $found = $this->db_manager->get('Todo')->findTodo($id);
+        $this->assertEquals($id, $found->id);
+    }
+
     public function tearDown()
     {
         $this->db_manager->get("Todo")->deleteAll();
