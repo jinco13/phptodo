@@ -10,6 +10,14 @@ class TodoController extends Controller
         ));
     }
 
+    public function editAction($params)
+    {
+        $todo = $this->db_manager->get('Todo')->findTodo($params['id']);
+        return $this->render(array(
+            'todo' => $todo
+        ));
+    }
+
     public function createAction()
     {
         if (!$this->request->isPost()) {
