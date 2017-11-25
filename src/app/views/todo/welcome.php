@@ -3,9 +3,11 @@
 <ul>
 <?php foreach($list as $todo): ?>
 <li>
-    <?php if ($todo->completed) { ?><strike><?php } ?>
-    <?php echo $todo->title; ?>(<?php echo $todo->getCreatedDate() ?>)
-    <?php if ($todo->completed) { ?></strike><?php } ?>
+    <a href='/todos/edit/<?php echo $todo->id; ?>'>
+        <?php if ($todo->completed) { ?><strike><?php } ?>
+        <?php echo $todo->title; ?>(<?php echo $todo->getCreatedDate() ?>)
+        <?php if ($todo->completed) { ?></strike><?php } ?>
+    </a>
 </li>
 <?php endforeach; ?>
 </ul>
