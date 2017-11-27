@@ -15,7 +15,8 @@ class MyTodoApplication extends Application
             '/'                 => array('controller' => 'todo', 'action' => 'welcome'),
             '/todos/new'        => array('controller' => 'todo', 'action' => 'new'),
             '/todos/create'     => array('controller' => 'todo', 'action' => 'create'),
-            '/todos/edit'       => array('controller' => 'todo', 'action' => 'edit'),
+            '/todos/edit/:id'       => array('controller' => 'todo', 'action' => 'edit'),
+            '/todos/update'       => array('controller' => 'todo', 'action' => 'update'),
         );
     }
 
