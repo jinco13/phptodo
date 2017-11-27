@@ -16,6 +16,26 @@ class TodoRepository extends DbRepository
         return $this->con->lastInsertId();
     }
 
+    public function update($todo)
+    {
+        $now = new DateTime();
+        $sql = "
+                UPDATE todos SET title = :title, completed = :completed
+                    WHERE id = :id
+        ";
+        try {
+            $stmt = $this->con->prepare($sql);
+            $stmt->bindParam(':title', $todo->title, PDO::PARAM_STR);
+            $stmt->bindParam(':completed', $todo->completed, PDO::PARAM_BOOL);
+            $stmt->bindParam(':id', $todo->id, PDO::PARAM_INT);
+            $stmt->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function deleteTodo($id)
     {
         $stmt = $this->con->prepare("DELETE FROM todos WHERE id = :id");
