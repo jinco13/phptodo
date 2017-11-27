@@ -23,6 +23,17 @@ class TodoRepositoryTest extends \PHPUnit\Framework\TestCase
         $found = $this->db_manager->get('Todo')->findTodo($id);
         $this->assertNull($found);
     }
+
+    public function testUpdateTodo()
+    {
+        $id = $this->db_manager->get('Todo')->insert($this->todo);
+        $found = $this->db_manager->get('Todo')->findTodo($id);
+        $found->name = "This is updated name";
+        $updated = $this->db_manager->get('Todo')->update($found);
+
+        $this->assertTrue($updated);
+    }
+
     public function testFindTodo()
     {
         $id = $this->db_manager->get('Todo')->insert($this->todo);
