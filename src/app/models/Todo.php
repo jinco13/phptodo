@@ -6,8 +6,22 @@ class Todo
     {
         $this->id = $id;
         $this->title = $title;
-        $this->completed = $completed;
+        if ($completed == '1') {
+            $this->completed = TRUE;
+        } else {
+            $this->completed = FALSE;
+        }
+
         $this->created_at = new DateTime();
+    }
+
+    public function getCompletedCheck()
+    {
+        if ($this->completed == TRUE) {
+            return "CHECKED";
+        } else {
+            return "";
+        }
     }
 
     public function done()
