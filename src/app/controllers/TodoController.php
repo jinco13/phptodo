@@ -14,8 +14,30 @@ class TodoController extends Controller
     {
         $todo = $this->db_manager->get('Todo')->findTodo($params['id']);
         return $this->render(array(
-            'todo' => $todo
+            'todo' => $todo,
+            '_token' => $this->generateCsrfToken('todos/edit'),
         ));
+    }
+
+    public function updateAction()
+    {
+        if (!$this->request->isPost()) {
+            $this->forward404();
+        }
+
+        $id = $this->request->getPost('id');
+        $token = $this->request->getPost('_token');
+        if (!$this->checkCsrfToken('todos/edit', $token)) {
+            return $this->redirect('/todos/edit/' . $id);
+        }
+
+        $todo = $this->db_manager->get('Todo')->findTodo($id);
+        $todo->title = $this->request->getPost('title');
+        $todo->setCompleted($this->request->getPost('completed'));
+
+        $updated = $this->db_manager->get('Todo')->update($todo);
+
+        return $this->redirect('/');
     }
 
     public function createAction()
@@ -38,7 +60,6 @@ class TodoController extends Controller
         $id = $this->db_manager->get('Todo')->insert($todo);
 
         return $this->redirect('/');
-        //return $this->render(array(),'create');
     }
 
     public function newAction()
