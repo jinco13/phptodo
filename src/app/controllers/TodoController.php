@@ -19,6 +19,12 @@ class TodoController extends Controller
         ));
     }
 
+    public function deleteAction($params)
+    {
+        $this->db_manager->get('Todo')->deleteTodo($this->request->getPost('id'));
+        return $this->redirect('/');
+    }
+
     public function updateAction()
     {
         if (!$this->request->isPost()) {
