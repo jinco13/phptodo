@@ -10,6 +10,7 @@
     <input type="submit" value="Update"/>
 </form>
 <form action="/todos/delete" method="POST">
+    <input type="hidden" name="_token" value="<?php echo $this->escape($_token); ?>" />
     <input type="hidden" name="id" value="<?php echo $todo->id ?>"/>
     <input type="submit" value="Delete"/>
 </form>
