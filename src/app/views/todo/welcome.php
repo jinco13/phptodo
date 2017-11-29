@@ -5,7 +5,7 @@
 <li>
     <a href='/todos/edit/<?php echo $todo->id; ?>'>
         <?php if ($todo->completed) { ?><strike><?php } ?>
-        <?php echo $todo->title; ?>(<?php echo $todo->getCreatedDate() ?>)
+        <?php echo htmlspecialchars($todo->title, ENT_QUOTES, 'UTF-8'); ?>(<?php echo $todo->getCreatedDate() ?>)
         <?php if ($todo->completed) { ?></strike><?php } ?>
     </a>
 </li>
