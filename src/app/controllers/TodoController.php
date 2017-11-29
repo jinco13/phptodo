@@ -21,7 +21,13 @@ class TodoController extends Controller
 
     public function deleteAction($params)
     {
-        $this->db_manager->get('Todo')->deleteTodo($this->request->getPost('id'));
+        $id = $this->request->getPost('id');
+        $token = $this->request->getPost('_token');
+        if (!$this->checkCsrfToken('todos/edit', $token)) {
+            return $this->redirect('/todos/edit/' . $id);
+        }
+        
+        $this->db_manager->get('Todo')->deleteTodo($id);
         return $this->redirect('/');
     }
 
